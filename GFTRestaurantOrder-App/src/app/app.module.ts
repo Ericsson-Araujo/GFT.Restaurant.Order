@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 
+import { DishService } from './_services/dish.service';
+
 @NgModule({
   declarations: [			
     AppComponent,
@@ -30,7 +32,9 @@ import { NavComponent } from './nav/nav.component';
     BsDropdownModule.forRoot(),
     ButtonsModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    DishService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

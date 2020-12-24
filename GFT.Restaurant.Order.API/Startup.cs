@@ -31,15 +31,18 @@ namespace GFT.Restaurant.Order.API
         {
             // Configurations (Controllers, Database, Injection e CORS)
 
-            services.AddControllers();   
-                        
             services.AddDbContext<Context>(
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
                         
+            services.AddMvc(a => a.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
             services.AddScoped<IDishBLL, DishBLL>();
             services.AddScoped<IDishDAL, DishDAL>();
                         
             services.AddCors();
+
+            //services.AddControllers();   
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,17 +52,25 @@ namespace GFT.Restaurant.Order.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            else
             {
-                endpoints.MapControllers();
-            });
+                app.UseHsts();
+            }
+
+            //app.UseHttpsRedirection();
+
+            //app.UseRouting();
+
+            //app.UseAuthorization();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
+
+            app.UseCors(configurePolicy: x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseMvc();
         }
     }
 }

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Dish } from '../_models/dish';
+import { DishFilter } from '../_models/dish-filter';
+import { DishHistory } from '../_models/dish-history';
+import { DishService } from '../_services/dish.service';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -11,31 +14,78 @@ defineLocale('pt-br', ptBrLocale);
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  test : String;
-  registerForm: FormGroup;
+  
+  textOrder: string;
+  textOutput: string;
+  dishesHistorys: DishHistory[];
+  filter: DishFilter;
 
   constructor(
-    private fb: FormBuilder
+      private dishService: DishService      
     ) {
-       //this.test = 'morning, 1, 2, 3';
-       this.test = '';
+        this.dishesHistorys = [];        
       }
+  
+  sendOrder() {    
+    this.filter = new DishFilter();
 
-  validation() {
-    this.registerForm = this.fb.group({
-      // tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      // local: ['', Validators.required],
-      // dataEvento: ['', Validators.required],
-      // imagemURL: ['', Validators.required],
-      // qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
-      // telefone: ['', Validators.required],
-      // email: ['', [Validators.required, Validators.email]]
-    });
+    let arrayOrder = this.textOrder.split(',');
+    
+    if (arrayOrder && arrayOrder.length > 1) {
+        this.filter.timeOfDay = arrayOrder[0];
+
+        for (let i = 1; i < arrayOrder.length; i++) {          
+          this.filter.types.push(parseInt(arrayOrder[i]));
+        }
+
+        this.searchDishes(this.filter);
+    }
+    
+  }
+
+  searchDishes(filter: DishFilter) {
+    
+    this.dishService.SearchDishes(filter).subscribe(
+      (_dishes: Dish[]) => {
+        this.textOutput = '';        
+        let oldDish = new Dish();
+        let cont = 1;
+
+        for (let i = 0; i < _dishes.length; i++) {
+          const dish = _dishes[i];
+
+          if (i == 0)
+            { this.textOutput = dish.description; }
+          else if (dish.description == oldDish.description)
+            { cont++; }
+          else if (cont > 1)
+            {              
+              this.textOutput += ` (x${cont})`;
+              cont = 1;
+              this.textOutput += ',' + dish.description;
+            }
+          else
+            { this.textOutput += ',' + dish.description; }
+
+          oldDish = dish;
+        }
+        this.addHistory();
+      }, error => {
+        console.error(error);
+      }
+    );
+  }
+  
+  addHistory() {
+    let history = new DishHistory();
+    history.input = this.textOrder;
+    history.output = this.textOutput;
+
+    this.dishesHistorys.unshift(history);
   }
 
   ngOnInit() {
-    this.validation();
+    
   }
 
 }

@@ -3,22 +3,23 @@
     
   <div class="row">
     <div class="col">
-      <label for="searchText" class="form-label">Digit your order: </label>
-      <input type="text" class="form-control" id="searchText" placeholder="example: night, 1, 2, 3, 4" [(ngModel)]="test">
+      <label for="searchText" class="form-label">Digit your order code: </label>
+      <input type="text" class="form-control" id="searchText" 
+        placeholder="example: night, 1, 2, 3, 4" [(ngModel)]="textOrder">
     </div>
   </div>
 
   <div class="row col">
     <div class="col"></div>
     <div class="col-2 p-3">      
-      <button type="button" class="btn btn-dark">Send Order</button>
+      <button type="button" class="btn btn-dark" (click)="sendOrder()">Send Order</button>
     </div>    
   </div>
 
   <div class="row">
     <div class="col">
       <label for="outputOrder" class="form-label">Your order: </label>
-      <input type="text" readonly class="form-control" id="outputOrder" value="{{test}}">
+      <input type="text" readonly class="form-control" id="outputOrder" value="{{textOutput}}">
     </div>
   </div>
 
@@ -37,24 +38,15 @@
       </div>
     </div>
 
-    <div class="row g-2">
+    <div class="row g-2" *ngFor="let history of dishesHistorys">
       <div class="col-6">
-        <div class="p-3 border bg-light">morning, 1, 2, 3</div>
+        <div class="p-3 border bg-light">{{history.input}}</div>
       </div>
       <div class="col-6">
-        <div class="p-3 border bg-light">eggs, toast, coffee </div>
-      </div>
-    </div>
-
-    <div class="row g-2">
-      <div class="col-6">
-        <div class="p-3 border bg-light">night, 1, 2, 3, 4</div>
-      </div>
-      <div class="col-6">
-        <div class="p-3 border bg-light">steak, potato, wine, cake</div>
+        <div class="p-3 border bg-light">{{history.output}}</div>
       </div>
     </div>
-
+   
   </div>
 
 </div>
