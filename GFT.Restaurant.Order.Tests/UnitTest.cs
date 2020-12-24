@@ -1,5 +1,10 @@
+using GFT.Restaurant.Order.API;
 using GFT.Restaurant.Order.API.Controllers;
+using GFT.Restaurant.Order.BLL;
+using GFT.Restaurant.Order.DAL;
 using GFT.Restaurant.Order.Model;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +13,14 @@ using System.Threading.Tasks;
 namespace GFT.Restaurant.Order.Tests
 {
     public class UnitTest
-    {
+    {        
         [SetUp]
         public void Setup()
         {
+            _connDB = "Data Source=../GFT.Restaurant.Order.API/GFTRestaurantOrder.db";
         }
+
+        private string _connDB;
 
         [TestCase("morining", new short[]{ 1, 2, 3})]        
         [TestCase("morining", new short[] { 2, 1, 3 })]
@@ -29,18 +37,26 @@ namespace GFT.Restaurant.Order.Tests
         {
             try
             {
+                DishController controller;
                 var listTypes = new List<short>(arrayTypes);
-                var controller = new DishController();
 
-                var response = await controller
+                var options = new DbContextOptionsBuilder<Context>()
+                                .UseSqlite(_connDB)
+                                .Options;
+
+                using (var context = new Context(options))
+                {
+                    controller = new DishController(
+                                        new DishBLL(
+                                            new DishDAL(context)
+                                           ));
+
+                    var response = await controller
                     .SearchDishes(new DishFilter { TimeOfDay = timeOfDay, Types = listTypes }) as List<Dish>;
 
-                Assert.NotNull(response, "The searched dish returned null");
-
-                //if (listTypes.Any(t => t < 1 || t > 4))
-                //    Assert.Contains(response, )
-                
-                Assert.Pass();
+                    Assert.NotNull(response, "The searched dish returned null");
+                    Assert.Pass();
+                }                
             }
             catch (System.Exception ex)
             {
@@ -54,13 +70,24 @@ namespace GFT.Restaurant.Order.Tests
         {
             try
             {
-                var controller = new DishController();
+                var options = new DbContextOptionsBuilder<Context>()
+                                .UseSqlite(_connDB)
+                                .Options;
 
-                var response = await controller.Get() as List<Dish>;
+                using (var context = new Context(options))
+                {
+                    var controller = new DishController(
+                                    new DishBLL(
+                                        new DishDAL(
+                                            context)
+                                        ));
 
-                Assert.NotNull(response, "The dishes returned null");
-                
-                Assert.Pass();
+                    var response = await controller.Get() as List<Dish>;
+
+                    Assert.NotNull(response, "The dishes returned null");
+
+                    Assert.Pass();
+                }
             }
             catch (System.Exception ex)
             {

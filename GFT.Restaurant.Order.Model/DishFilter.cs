@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using GFT.Restaurant.Order.Model.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -10,6 +11,6 @@ namespace GFT.Restaurant.Order.Model
         public string TimeOfDay { get; set; }
         
         [Required, JsonPropertyName("types")]
-        public IEnumerable<short> Types { get; set; }
+        public List<short> Types { get; set; }
     }
 }

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GFT.Restaurant.Order.DAL\GFT.Restaurant.Order.DAL.csproj" />
+    <ProjectReference Include="..\GFT.Restaurant.Order.Model\GFT.Restaurant.Order.Model.csproj" />
+  </ItemGroup>
+
+</Project>

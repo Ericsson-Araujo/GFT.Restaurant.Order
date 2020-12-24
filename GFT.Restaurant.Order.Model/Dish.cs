@@ -6,7 +6,7 @@ namespace GFT.Restaurant.Order.Model
     {
         public int Id { get; set; }
         public string Description { get; set; }              
-        public ETypes Type { get; set; }
+        public short Type { get; set; }
         public string TimeOfDay { get; set; }
     }
 }
