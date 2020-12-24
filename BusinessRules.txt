@@ -3,7 +3,7 @@ Business Rules :
 2.User should enter a comma delimited list of dish types with at least one selection - OK
 3.The output must print food in the following order: entrée, side, drink, dessert - OK
 4.There is no dessert for morning meals - OK
-5.Input is not case sensitive
+5.Input is not case sensitive - OK
 6.If invalid selection is encountered, display valid selections up to the error, then print error - OK
 7.In the morning, you can order multiple cups of coffee
 8.At night, you can have multiple orders of potatoes

@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   
   sendOrder() {    
     this.filter = new DishFilter();
+    this.textOrder = this.textOrder.toLowerCase();
 
     let arrayOrder = this.textOrder.split(',');
     
@@ -68,10 +69,15 @@ export class HomeComponent implements OnInit {
             { this.textOutput += ',' + dish.description; }
 
           oldDish = dish;
-        }
-        this.addHistory();
-      }, error => {
+        }        
+      }, 
+      error => {
         console.error(error);
+        this.textOutput = `${error.status} ${error.error}`;
+      }
+    ).add(
+      () => {
+        this.addHistory();
       }
     );
   }
