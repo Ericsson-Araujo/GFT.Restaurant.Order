@@ -1,0 +1,60 @@
+<br/>
+<div class="container-fluid">  
+    
+  <div class="row">
+    <div class="col">
+      <label for="searchText" class="form-label">Digit your order: </label>
+      <input type="text" class="form-control" id="searchText" placeholder="example: night, 1, 2, 3, 4" [(ngModel)]="test">
+    </div>
+  </div>
+
+  <div class="row col">
+    <div class="col"></div>
+    <div class="col-2 p-3">      
+      <button type="button" class="btn btn-dark">Send Order</button>
+    </div>    
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label for="outputOrder" class="form-label">Your order: </label>
+      <input type="text" readonly class="form-control" id="outputOrder" value="{{test}}">
+    </div>
+  </div>
+
+  <br/>
+
+  <h3 class="p-4">History:</h3>
+  
+  <div class="container">   
+
+    <div class="row g-2">
+      <div class="col-6">
+        <h4 class="p-3 border bg-light">Inputs</h4>
+      </div>
+      <div class="col-6">
+        <h4 class="p-3 border bg-light">Outputs</h4>
+      </div>
+    </div>
+
+    <div class="row g-2">
+      <div class="col-6">
+        <div class="p-3 border bg-light">morning, 1, 2, 3</div>
+      </div>
+      <div class="col-6">
+        <div class="p-3 border bg-light">eggs, toast, coffee </div>
+      </div>
+    </div>
+
+    <div class="row g-2">
+      <div class="col-6">
+        <div class="p-3 border bg-light">night, 1, 2, 3, 4</div>
+      </div>
+      <div class="col-6">
+        <div class="p-3 border bg-light">steak, potato, wine, cake</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
