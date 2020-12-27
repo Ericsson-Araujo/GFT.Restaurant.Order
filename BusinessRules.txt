@@ -5,6 +5,6 @@ Business Rules :
 4.There is no dessert for morning meals - OK
 5.Input is not case sensitive - OK
 6.If invalid selection is encountered, display valid selections up to the error, then print error - OK
-7.In the morning, you can order multiple cups of coffee
-8.At night, you can have multiple orders of potatoes
-9.Except for the above rules, you can only order 1 of each dish type
+7.In the morning, you can order multiple cups of coffee - ok
+8.At night, you can have multiple orders of potatoes - ok
+9.Except for the above rules, you can only order 1 of each dish type - ok

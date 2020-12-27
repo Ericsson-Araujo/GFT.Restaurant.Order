@@ -1,9 +1,15 @@
 <br/>
 <div class="container-fluid">  
-    
+  <div class="row">
+    <div class="col p-4">
+      <h4>Time of Day: Morning Or Night</h4>
+      <h4>1: Entree, 2: Side, 3: Drink and 4: Dessert</h4>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col">
-      <label for="searchText" class="form-label">Digit your order code: </label>
+      <label for="searchText" class="form-label">Digit your order code: </label>      
       <input type="text" class="form-control" id="searchText" 
         placeholder="example: night, 1, 2, 3, 4" [(ngModel)]="textOrder">
     </div>
@@ -30,7 +36,7 @@
   <div class="container">   
 
     <div class="row g-2">
-      <div class="col-6">
+      <div class="col-6">        
         <h4 class="p-3 border bg-light">Inputs</h4>
       </div>
       <div class="col-6">
@@ -39,7 +45,7 @@
     </div>
 
     <div class="row g-2" *ngFor="let history of dishesHistorys">
-      <div class="col-6">
+      <div class="col-6">        
         <div class="p-3 border bg-light">{{history.input}}</div>
       </div>
       <div class="col-6">
